@@ -74,10 +74,9 @@ The above configuration would generate the following:
     <!--dep-inject-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mithril/1.1.6/mithril.min.js"></script>
     <script src="https://unpkg.com/turbolinks@5.2.0/dist/turbolinks.js"></script>
-
     <!--dep-inject-->
-    <script src="bundle.test.js"></script>
 
+    <script src="bundle.test.js"></script>
   </head>
   <body>
     <div class="test">
