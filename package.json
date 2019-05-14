@@ -1,13 +1,13 @@
 {
   "name": "rollup-plugin-dep-inject",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A rollup plugin that extracts your externally defined modules and injects their unpkg cdn equivalent into an index entry file.",
   "main": "dist/rollup-plugin-dep-inject.cjs.js",
   "module": "dist/rollup-plugin-dep-inject.es6.js",
   "jsnext:main": "dist/rollup-plugin-dep-inject.es6.js",
   "scripts": {
     "build": "rollup -c",
-    "test": "rollup -c -w",
+    "dev": "rollup -c test/rollup.config.js -w",
     "lint": "prettier rollup.config.js src/**"
   },
   "keywords": [
@@ -37,8 +37,17 @@
   },
   "devDependencies": {
     "chokidar": "^3.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-node": "^9.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
     "fs": "^0.0.1-security",
+    "lodash": "^4.17.11",
+    "mithril": "^1.1.6",
     "rollup": "^1.1.2",
-    "rollup-plugin-buble": "^0.19.6"
+    "rollup-plugin-buble": "^0.19.6",
+    "turbolinks": "^5.2.0"
   }
 }
