@@ -3,33 +3,37 @@
 
 A rollup plugin that extracts your externally defined modules and injects their unpkg cdn equivalent into an index entry file resulting in faster bundle times.
 
-###  Install
+### Install
 `yarn add rollup-plugin-dep-inject --dev`
 
 ### Example
 ```js
+
 import depInject from  'rollup-plugin-dep-inject'
 
 export default {
-	input: 'src/app.js',
-	external: ['lodash', 'mithril', 'turbolinks'],
-	output: [{
-		file: 'dist/app.js',
-		format: 'iife',
-		name: 'App',
-		sourcemap: true,
-		globals: {
-			lodash: '_',
-			mithril: 'm',
-			turbolinks: 'Turbolinks'
-		}
-	}],
-	plugins: [
-		depInject({
-			index: 'dist/index.html'
-		})
-	],
+  input: 'src/app.js',
+  external: ['lodash', 'mithril', 'turbolinks'],
+  output: [
+    {
+      file: 'dist/app.js',
+      format: 'iife',
+      name: 'App',
+      sourcemap: true,
+      globals: {
+        lodash: '_',
+        mithril: 'm',
+        turbolinks: 'Turbolinks'
+      }
+    }
+  ],
+  plugins: [
+    depInject({
+      index: 'dist/index.html'
+    })
+  ]
 }
+
 ```
 
 ### Options
@@ -46,33 +50,42 @@ export default {
 By default all external modules listed in  `rollup.config.js` files will be injected and use version numbers sourced from the projects `package.json`. Below is a usage example with custom configuration:
 
 ```js
+
 depInject({
-	index: 'dist/index.html',
-	attrs: 'defer',
-	ignore: ['lodash'],
-	overwrite: {
-		'mithril': 'https://cdnjs.cloudflare.com/ajax/libs/mithril/1.1.6/mithril.min.js'
-	}
+  index: 'dist/index.html',
+  attrs: 'defer',
+  ignore: ['lodash'],
+  overwrite: {
+    mithril:
+      'https://cdnjs.cloudflare.com/ajax/libs/mithril/1.1.6/mithril.min.js'
+  }
 })
+
 ```
 The above configuration would generate the following:
 
 ```html
+
 <html lang="en">
-<head>
-	<meta  charset="UTF-8">
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
 
-	<!--dep-inject-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/mithril/1.1.6/mithril.min.js" defer></script>
-	<script src="https://unpkg.com/turbolinks@5.2.0/dist/turbolinks.js" defer></script>
-	<!--dep-inject-->
+    <!--dep-inject-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mithril/1.1.6/mithril.min.js"></script>
+    <script src="https://unpkg.com/turbolinks@5.2.0/dist/turbolinks.js"></script>
 
-	<script  src="bundle.js"></script>
-</head>
-<body>
-	<div id="app"></div>
-</body>
+    <!--dep-inject-->
+    <script src="bundle.test.js"></script>
+
+  </head>
+  <body>
+    <div class="test">
+      <h1>Hello World</h1>
+    </div>
+  </body>
 </html>
+
 ```
 The injectected dependencies in this example reflect the options defined within the plugin configuration :
 
