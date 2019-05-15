@@ -98,8 +98,6 @@ The injectected dependencies in this example reflect the options defined within 
 ### How it works?
 The plugin uses your bundles `external: []` modules and cross-references them with your projects package.json dependencies. The name and version number is used to generate `<script src="">` tags that reference the modules [unpkg](unpkg.io) uri equivalent cdn address. The generated `script` tag modules are then injected into the entry `index` file that was defined in the plugin options.
 
-
-
 ## Changelog
 
 Please see [changelog](changelog.md) for more information what has changed recently.
