@@ -1,7 +1,7 @@
 
 # rollup-plugin-dep-inject
 
-A rollup plugin that extracts your externally defined modules and injects their unpkg cdn equivalent into an index entry file resulting in faster bundle times.
+A rollup plugin that will extract your external defined modules and inject their [unpkg](unpkg.io) CDN equivalent into a custom defined index entry file.
 
 ### Install
 `yarn add rollup-plugin-dep-inject --dev`
@@ -47,15 +47,18 @@ export default {
 
 
 ## Usage
-By default all external modules listed in  `rollup.config.js` files will be injected and use version numbers sourced from the projects `package.json`. Below is a usage example with custom configuration:
+By default all external modules listed in `rollup.config.js` files will be injected and use the version numbers sourced from your projects `package.json` file.
+
+Below is a usage example with custom configuration:
 
 ```js
 
 depInject({
-  index: 'dist/index.html',
-  attrs: 'defer',
-  ignore: ['lodash'],
+  index: 'dist/index.html', // inject into this file
+  attrs: 'defer', // add 'defer; to each script tag
+  ignore: ['lodash'], // don't inject 'lodash' module
   overwrite: {
+    // use a different CDN for the 'mithril' module external
     mithril:
       'https://cdnjs.cloudflare.com/ajax/libs/mithril/1.1.6/mithril.min.js'
   }
@@ -72,8 +75,8 @@ The above configuration would generate the following:
     <title>Document</title>
 
     <!--dep-inject-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mithril/1.1.6/mithril.min.js"></script>
-    <script src="https://unpkg.com/turbolinks@5.2.0/dist/turbolinks.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mithril/1.1.6/mithril.min.js" defer></script>
+    <script src="https://unpkg.com/turbolinks@5.2.0/dist/turbolinks.js" defer></script>
     <!--dep-inject-->
 
     <script src="bundle.test.js"></script>
@@ -86,14 +89,16 @@ The above configuration would generate the following:
 </html>
 
 ```
-The injectected dependencies in this example reflect the options defined within the plugin configuration :
+The injectected dependencies in this example reflect the options defined within the plugin configuration:
 
-- The script tags using `defer`  attribute
+- The script tags contain `defer` attributes
 - Lodash was ignored
-- Mithril is using an alternative CDN
+- Mithril is using an alternative CDN address.
 
 ### How it works?
-The plugin extracts your bundles `external: []` modules and will cross-reference them with to your projects package.json dependencies. The modules name and version number is used to generate `<script src="">` tags that reference a modules unpkg uri equivalent cdn. The generated  `script` tag module cdn references are injected into the entry index file that was defined in the plugin options.
+The plugin uses your bundles `external: []` modules and cross-references them with your projects package.json dependencies. The name and version number is used to generate `<script src="">` tags that reference the modules [unpkg](unpkg.io) uri equivalent cdn address. The generated `script` tag modules are then injected into the entry `index` file that was defined in the plugin options.
+
+
 
 ## Changelog
 
