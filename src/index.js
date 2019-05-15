@@ -1,9 +1,16 @@
 import { unpkg } from 'unpkg-uri'
 import fs from 'fs'
-import chalk from 'chalk'
+
+const PLUGIN_NAME = 'rollup-plugin-dep-inject'
+const COMMENT = '<!--dep-inject-->'
 
 class DepInject {
 
+  /**
+   *
+   * @param {object} options – Plugin options
+   * @param {object} settings – Configuration presets
+   */
   constructor (options,
     settings = {
       index: '',
@@ -13,71 +20,73 @@ class DepInject {
       }
     }) {
 
-    this.comments = new RegExp(/(<!--dep-inject-->)((?:\n|.)*)(\1)\s+/, 'gm')
     this.config = Object.assign(settings, options)
+    this.wrap = new RegExp(`(${COMMENT})((?:\n|.)*)(\\1)\\s+`, 'gm')
     this.index = fs.readFileSync(this.config.index).toString()
+    this.position = this.index.indexOf('<script')
 
   }
 
+  /**
+   * @param {array} external – Rollup external module ids
+   */
   entry (external) {
 
-    if (this.index.match(this.comments)) {
+    if (this.index.match(this.wrap)) {
 
-      this.index = this.index.replace(this.comments, '')
+      this.index = this.index.replace(this.wrap, '')
 
     }
 
-    const position = this.index.indexOf('<script')
-    if (position > -1) {
+    if (this.position > -1) {
 
-      fs.writeFileSync(this.config.index, this.inject(external, position))
+      fs.writeFileSync(this.config.index, this.inject(external))
       this.executed = true
 
     }
 
   }
 
-  inject (external, position) {
+  /**
+   * @param {array} external – Rollup external module ids
+   * @return {string}
+   */
+  inject (external) {
 
     const { ignore, overwrite, attr } = this.config
     const modules = external.map(module => {
 
-      if (!ignore.includes(module)) {
-
-        return overwrite.hasOwnProperty(module)
-          ? overwrite[module]
-          : unpkg(module)
-
-      }
+      return !ignore.includes(module) && overwrite.hasOwnProperty(module)
+        ? `<script src="${overwrite[module]}"${attr}></script>`
+        : `<script src="${unpkg(module)}"${attr}></script>`
 
     })
 
-    const dependencies = modules
-    .filter(module => module && module)
-    .map(cdn => `<script src="${cdn}"${attr}></script>`)
-
     return (
-      this.index.substr(0, position) +
-      '<!--dep-inject-->\n' +
-      dependencies.join('\n') +
-      '\n<!--dep-inject-->\n' +
-      this.index.substr(position)
+      this.index.substr(0, this.position) +
+      `${COMMENT}\n` +
+      modules.join('\n') +
+      `\n${COMMENT}\n` +
+      this.index.substr(this.position)
     )
 
   }
 
 }
 
+/**
+ * Rollup Plugin
+ * @param {object} options - Plugin options
+ */
 export default function depInject (options) {
 
   const inject = new DepInject(options)
 
   return {
-    name: 'rollup-plugin-dep-inject',
+    name: PLUGIN_NAME,
     options ({ external }) {
 
       !inject.executed && inject.entry(external)
-
       return null
 
     }
