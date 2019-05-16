@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-dep-inject",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A rollup plugin that uses your externally defined modules and injects their unpkg cdn equivalent into an index entry file.",
   "main": "dist/rollup-plugin-dep-inject.cjs.js",
   "module": "dist/rollup-plugin-dep-inject.es6.js",
