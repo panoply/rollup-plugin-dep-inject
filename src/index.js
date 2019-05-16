@@ -16,14 +16,15 @@ class DepInject {
       index: '',
       attr: '',
       ignore: [],
-      overwrite: {
+      unpkg: {
+      },
+      custom: {
       }
     }) {
 
     this.config = Object.assign(settings, options)
     this.wrap = new RegExp(`(${COMMENT})((?:\n|.)*)(\\1)\\s+`, 'gm')
     this.index = fs.readFileSync(this.config.index).toString()
-    this.position = this.index.indexOf('<script')
 
   }
 
@@ -37,6 +38,8 @@ class DepInject {
       this.index = this.index.replace(this.wrap, '')
 
     }
+
+    this.position = this.index.indexOf('<script')
 
     if (this.position > -1) {
 
@@ -53,19 +56,27 @@ class DepInject {
    */
   inject (external) {
 
-    const { ignore, overwrite, attr } = this.config
+    const { ignore, custom, attr } = this.config
+    const _unpkg = this.config.unpkg
+
     const modules = external.map(module => {
 
-      return !ignore.includes(module) && overwrite.hasOwnProperty(module)
-        ? `<script src="${overwrite[module]}"${attr}></script>`
-        : `<script src="${unpkg(module)}"${attr}></script>`
+      if (!ignore.includes(module)) {
+
+        return custom.hasOwnProperty(module)
+          ? `<script src="${custom[module]}"${attr}></script>`
+          : _unpkg.hasOwnProperty(module)
+            ? `<script src="${unpkg(module + _unpkg[module])}"${attr}></script>`
+            : `<script src="${unpkg(module)}"${attr}></script>`
+
+      }
 
     })
 
     return (
       this.index.substr(0, this.position) +
       `${COMMENT}\n` +
-      modules.join('\n') +
+      modules.filter(m => m && m).join('\n') +
       `\n${COMMENT}\n` +
       this.index.substr(this.position)
     )
