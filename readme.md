@@ -58,11 +58,11 @@ The plugin leverages [unpkg-uri](https://github.com/tabianco/unpkg-uri) when gen
 
 | Value | Returns |
 |--|--|
-| `[min.js]` | *https:\//unpkg.com/moduleID@0.1.0/lib/index.min.js*
-| <code>&#124;file.json</code> | *https:\//unpkg.com/moduleID@0.1.0/lib/file.json*
-| `/package.json` | *https:\//unpkg.com/moduleID@0.1.0/package.json*
-| `@1.2.3` | *https:\//unpkg.com/moduleID@1.2.3/lib/index.js*
-| `@prefix/` | *https:\//unpkg.com/@prefix/moduleID@0.1.0/lib/index.js*
+| `[min.js]` | *https\://unpkg.com/moduleID@0.1.0/lib/index.min.js*
+| <code>&#124;file.json</code> | *https\://unpkg.com/moduleID@0.1.0/lib/file.json*
+| `/package.json` | *https\://unpkg.com/moduleID@0.1.0/package.json*
+| `@1.2.3` | *https\://unpkg.com/moduleID@1.2.3/lib/index.js*
+| `@prefix/` | *https\://unpkg.com/@prefix/moduleID@0.1.0/lib/index.js*
 
 ## Usage
 
