@@ -54,7 +54,7 @@ export default {
 
 #### unpkg-uri
 
-The plugin leverages (unpkg-uri)[https://github.com/tabianco/unpkg-uri] when generating the unpkg CDN module equvilents. The `unpkg` option accepts unpkg-uri pattern values which allows you to retrive specified references within a modules package.
+The plugin leverages [unpkg-uri](https://github.com/tabianco/unpkg-uri) when generating the unpkg CDN module equivalents. The `unpkg` option accepts unpkg-uri pattern values which allows you to retrieve specified references within a modules package.
 
 | Value | Returns |
 |--|--|
