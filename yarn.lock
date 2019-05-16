@@ -192,6 +192,11 @@ braces@^3.0.2:
   dependencies:
     fill-range "^7.0.1"
 
+bss@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/bss/-/bss-1.6.1.tgz#0c1c70b2663287d88bf3b4d341fbcca1870aeb01"
+  integrity sha512-+VlmxRQkv73NznpBvkL+UT1tYE/Bvr+n4d9Lhe2K0jLztICULarH6XZuks+xE1guSQv1/H42i7wyC0PzF/eaTw==
+
 buble@^0.19.6:
   version "0.19.7"
   resolved "https://registry.yarnpkg.com/buble/-/buble-0.19.7.tgz#1dfd080ab688101aad5388d3304bc82601a244fd"
