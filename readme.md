@@ -52,7 +52,8 @@ export default {
 
 > Both the `unpkg` and `custom` options accept a comma-separate list of `moduleID:Reference` pairs.
 
-<strong>unpkg-uri</strong><br>
+#### unpkg-uri
+
 The plugin leverages (unpkg-uri)[https://github.com/tabianco/unpkg-uri] when generating the unpkg CDN module equvilents. The `unpkg` option accepts unpkg-uri pattern values which allows you to retrive specified references within a modules package.
 
 | Value | Returns |
@@ -60,12 +61,12 @@ The plugin leverages (unpkg-uri)[https://github.com/tabianco/unpkg-uri] when gen
 | `[min.js]` | *https://unpkg.com/moduleID@0.1.0/lib/index.min.js*
 | `|file.json` | *https://unpkg.com/moduleID@0.1.0/lib/file.json*
 | `/package.json` | *https://unpkg.com/moduleID@0.1.0/package.json*
-| `@1.2.3` | *https://unpkg.com/moduleID@1.2.3/lib/index.js* |
+| `@1.2.3` | *https://unpkg.com/moduleID@1.2.3/lib/index.js*
 | `'@prefix/` | *https://unpkg.com/@prefix/moduleID@0.1.0/lib/index.js*
 
 ## Usage
 
-By default all external modules listed in `rollup.config.js` files will be injected and use the version numbers sourced from your projects `package.json` file. The unpkg uri will be generated automatically using (unpkg-uri)[https://github.com/tabianco/unpkg-uri#usage].
+By default all external modules listed in `rollup.config.js` files will be injected and use the version numbers sourced from your projects `package.json` file. The unpkg uri will be generated automatically.
 
 Below is a usage example with custom configuration:
 
