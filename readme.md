@@ -1,4 +1,6 @@
 
+![npm](https://img.shields.io/npm/v/rollup-plugin-dep-inject.svg?style=flat-square)
+
 # rollup-plugin-dep-inject
 
 A rollup plugin that will extract your external defined modules and inject their [unpkg](unpkg.io) CDN equivalent into a custom defined index entry file.
@@ -55,7 +57,7 @@ Below is a usage example with custom configuration:
 
 depInject({
   index: 'dist/index.html', // inject into this file
-  attrs: 'defer', // add 'defer; to each script tag
+  attrs: 'defer', // add 'defer' attribute to each script tag
   ignore: ['lodash'], // don't inject 'lodash' module
   overwrite: {
     // use a different CDN for the 'mithril' module external
