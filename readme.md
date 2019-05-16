@@ -52,7 +52,7 @@ export default {
 
 > Both the `unpkg` and `custom` options accept a comma-separate list of `moduleID:Reference` pairs.
 
-#### unpkg-uri
+### unpkg-uri
 
 The plugin leverages [unpkg-uri](https://github.com/tabianco/unpkg-uri) when generating the unpkg CDN module equivalents. The `unpkg` option accepts unpkg-uri pattern values which allows you to retrieve specified references within a modules package.
 
@@ -62,7 +62,7 @@ The plugin leverages [unpkg-uri](https://github.com/tabianco/unpkg-uri) when gen
 | <code>&#124;file.json</code> | *https://unpkg.com/moduleID@0.1.0/lib/file.json*
 | `/package.json` | *https://unpkg.com/moduleID@0.1.0/package.json*
 | `@1.2.3` | *https://unpkg.com/moduleID@1.2.3/lib/index.js*
-| `'@prefix/` | *https://unpkg.com/@prefix/moduleID@0.1.0/lib/index.js*
+| `@prefix/` | *https://unpkg.com/@prefix/moduleID@0.1.0/lib/index.js*
 
 ## Usage
 
