@@ -5,9 +5,7 @@
     "jest": false,
     "node": true
   },
-  "extends": [
-    "standard"
-  ],
+  "extends": ["standard"],
   "parserOptions": {
     "ecmaVersion": 2017,
     "sourceType": "module"
@@ -24,7 +22,7 @@
     "implicit-arrow-linebreak": "off",
     "class-methods-use-this": 0,
     "guard-for-in": 0,
-    "allowElseIf": true,
+    "allowElseIf": 0,
     "key-spacing": [
       2,
       {
@@ -40,24 +38,15 @@
         "minItems": 5
       }
     ],
-    "array-element-newline": [
-      "error",
-      "always"
-    ],
+    "array-element-newline": ["error", "always"],
     "array-bracket-newline": [
       "error",
       {
         "minItems": 1
       }
     ],
-    "array-bracket-spacing": [
-      "error",
-      "always"
-    ],
-    "comma-dangle": [
-      "error",
-      "never"
-    ],
+    "array-bracket-spacing": ["error", "always"],
+    "comma-dangle": ["error", "never"],
     "operator-linebreak": [
       "error",
       "after",
@@ -74,10 +63,7 @@
         "ignoreChainWithDepth": 4
       }
     ],
-    "object-curly-spacing": [
-      "error",
-      "always"
-    ],
+    "object-curly-spacing": ["error", "always"],
     "object-curly-newline": [
       "error",
       {
@@ -109,10 +95,7 @@
         "allowSingleLineBlocks": true
       }
     ],
-    "semi": [
-      "error",
-      "never"
-    ],
+    "semi": ["error", "never"],
     "padding-line-between-statements": [
       "error",
       {
