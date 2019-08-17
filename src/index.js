@@ -13,15 +13,14 @@ class DepInject {
    */
   constructor (options,
     settings = {
-      index: '',
-      attr: '',
-      ignore: [],
-      unpkg: {
-      },
-      custom: {
-      }
+      index: String,
+      attr: String,
+      ignore: Array,
+      unpkg: Object,
+      custom: Object
     }) {
 
+    this.executed = false
     this.config = Object.assign(settings, options)
     this.wrap = new RegExp(`(${COMMENT})((?:\n|.)*)(\\1)\\s+`, 'gm')
     this.index = fs.readFileSync(this.config.index).toString()
