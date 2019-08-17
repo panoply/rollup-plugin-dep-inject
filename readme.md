@@ -4,7 +4,10 @@
 
 # rollup-plugin-dep-inject
 
-A rollup plugin that will use your external defined modules and inject their [unpkg](unpkg.io) CDN equivalents as script tags into a custom defined entry `index` file.
+A rollup plugin that will use your external defined modules and inject their [unpkg](unpkg.io) CDN equivalents as script tags into a custom defined entry `index` file. The benifits here are that Rollup will skip bundling heavy dependencies that you might be using, which in turn will speed up your bundle times.
+
+### Why not just code split?
+You can, but even with code splitting, Rollup is still processing your dependencies. This plugin will be exceptionally helpful when in development.
 
 ### Install
 `yarn add rollup-plugin-dep-inject --dev`

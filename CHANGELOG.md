@@ -2,7 +2,13 @@
 
 All notable changes to `rollup-plugin-dep=inject will be documented in this file.
 
-## [0.2.2] - 17/00/2019
+## [0.2.3] - 17/08/2019
+
+### Updates
+
+- Some readme.md updates and changes.
+
+## [0.2.2] - 17/08/2019
 
 ### Updates
 
