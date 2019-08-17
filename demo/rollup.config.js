@@ -1,4 +1,4 @@
-import depInject from './../src/index'
+import depInject from '../src/index'
 
 export default {
   input: 'test/app.js',
@@ -25,13 +25,13 @@ export default {
   plugins: [
     depInject({
       index: 'test/index.html',
-      attr: 'defer', // add a 'defer' attribute to each generated script tag
+      attr: '', // add a 'defer' attribute to each generated script tag
       ignore: [
         'lodash' // do not inject the 'lodash' module
       ],
       unpkg: {
         // leverage unpkg-uri and retrive the minified version
-        bss: '[min.js]'
+        // bss: '[min.js]'
       },
       custom: {
         // use a different CDN for the 'mithril' module external
