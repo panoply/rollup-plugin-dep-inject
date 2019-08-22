@@ -13,9 +13,9 @@ class DepInject {
    */
   constructor (options,
     settings = {
-      index: String,
-      attr: String,
-      ignore: Array,
+      index: '',
+      attr: '',
+      ignore: [],
       unpkg: Object,
       custom: Object
     }) {
