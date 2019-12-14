@@ -7,7 +7,7 @@
 A rollup plugin that will use your external defined modules and inject their [unpkg](unpkg.io) CDN equivalents as script tags into a custom defined entry `index` file. The benifits here are that Rollup will skip bundling heavy dependencies that you might be using, which in turn will speed up your bundle times.
 
 ### Why not just code split?
-You can, but even with code splitting, Rollup is still processing your dependencies. This plugin will be exceptionally helpful when in development.
+You can, but even with code splitting, Rollup is still processing your dependencies. This plugin will be exceptionally helpful when you're working on a web project that uses a large amount of external depenedencies.
 
 ### Install
 `yarn add rollup-plugin-dep-inject --dev`
@@ -50,7 +50,7 @@ export default {
 | `index` | *String* | Relative path to the projects entry index file. |
 | `attrs` | *String* | Attributes apply to `<script>` tags. |
 | `ignore` | *Array* | External listed module IDs to ignore. |
-| `unpkg` | *Object* | Retive specific reference using a unpkg-uri pattern. |
+| `unpkg` | *Object* | Retrieve specific reference using a unpkg-uri pattern. |
 | `custom` | *Object* | Use a custom url reference to a module. |
 
 > Both the `unpkg` and `custom` options accept a comma-separate list of `moduleID:Reference` pairs.
