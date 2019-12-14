@@ -1,5 +1,6 @@
 import { unpkg } from 'unpkg-uri'
 import fs from 'fs'
+import chalk from 'chalk'
 
 const PLUGIN_NAME = 'rollup-plugin-dep-inject'
 const COMMENT = '<!--dep-inject-->'
@@ -7,7 +8,6 @@ const COMMENT = '<!--dep-inject-->'
 class DepInject {
 
   /**
-   *
    * @param {object} options – Plugin options
    * @param {object} settings – Configuration presets
    */
@@ -22,8 +22,15 @@ class DepInject {
 
     this.executed = false
     this.config = Object.assign(settings, options)
-    this.wrap = new RegExp(`(${COMMENT})((?:\n|.)*)(\\1)\\s+`, 'gm')
-    this.index = fs.readFileSync(this.config.index).toString()
+    this.commentWrap = new RegExp(`\\s*?(${COMMENT})[\\s\\S]*?\\1`)
+    this.document = fs.readFileSync(this.config.index).toString()
+
+  }
+
+  write (external) {
+
+    fs.writeFileSync(this.config.index, this.inject(external))
+    this.executed = true
 
   }
 
@@ -32,18 +39,38 @@ class DepInject {
    */
   entry (external) {
 
-    if (this.index.match(this.wrap)) {
+    if (this.commentWrap.test(this.document)) {
 
-      this.index = this.index.replace(this.wrap, '')
+      this.document = this.document.replace(this.commentWrap, '').trim()
 
     }
 
-    this.position = this.index.indexOf('<script')
+    this.position = this.document.indexOf('<script')
 
     if (this.position > -1) {
 
-      fs.writeFileSync(this.config.index, this.inject(external))
-      this.executed = true
+      console.log(chalk`{bold.yellowBright rollup-plugin-dep-inject}: {blue.bold ${external.length}} module/s added to the {cyanBright ${this.config.index}} file at position {blue.bold 0}.`)
+
+      this.write(external)
+
+    } else {
+
+      this.position = this.document.indexOf('</head')
+
+      if (this.position > -1) {
+
+        console.log(chalk`{bold.yellowBright rollup-plugin-dep-inject}: No {yellow <script>} tags detected within {cyanBright ${this.config.index}} file. {blue.bold ${external.length}} module/s will write from the {yellow <head>} element position of the document.`)
+
+        this.write(external)
+
+      } else {
+
+        console.log(chalk`{bold.yellowBright rollup-plugin-dep-inject}: No {yellow <script>} or {yellow <head>} tags detected within {cyanBright ${this.config.index}} file. {blue.bold ${external.length}} module/s will write from position {blue.bold 0} of the document.`)
+
+        this.position = 0
+        this.write(external)
+
+      }
 
     }
 
@@ -73,11 +100,11 @@ class DepInject {
     })
 
     return (
-      this.index.substr(0, this.position) +
+      this.document.substring(0, this.position) +
       `${COMMENT}\n` +
       modules.filter(m => m && m).join('\n') +
       `\n${COMMENT}\n` +
-      this.index.substr(this.position)
+      this.document.substring(this.position)
     )
 
   }
