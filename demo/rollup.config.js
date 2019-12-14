@@ -1,7 +1,7 @@
 import depInject from '../src/index'
 
 export default {
-  input: 'test/app.js',
+  input: './demo/app.js',
   external: [
     'lodash',
     'bss',
@@ -10,7 +10,7 @@ export default {
   ],
   output: [
     {
-      file: 'test/app.bundle.js',
+      file: './demo/app.bundle.js',
       format: 'iife',
       name: 'App',
       sourcemap: true,
@@ -24,8 +24,9 @@ export default {
   ],
   plugins: [
     depInject({
-      index: 'test/index.html',
+      index: './demo/index.html',
       attr: '', // add a 'defer' attribute to each generated script tag
+      inBody: false,
       ignore: [
         'lodash' // do not inject the 'lodash' module
       ],
