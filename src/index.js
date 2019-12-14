@@ -16,6 +16,7 @@ class DepInject {
       index: '',
       attr: '',
       ignore: [],
+      remove: false,
       unpkg: Object,
       custom: Object
     }) {
@@ -42,6 +43,23 @@ class DepInject {
     if (this.commentWrap.test(this.document)) {
 
       this.document = this.document.replace(this.commentWrap, '').trim()
+
+      if (this.config.remove) {
+
+        console.log(chalk`{bold.yellowBright rollup-plugin-dep-inject}: {blue.bold ${external.length}} module/s were removed from {cyanBright ${this.config.index}} file.`)
+
+        return fs.writeFileSync(this.config.index, this.document)
+
+
+      }
+
+    } else {
+
+      if (this.config.remove) {
+
+        return console.log(chalk`{bold.yellowBright rollup-plugin-dep-inject}: No injected dependency modules were detected, removal was skipped.`)
+
+      }
 
     }
 

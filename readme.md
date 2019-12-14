@@ -50,6 +50,7 @@ export default {
 | `index` | *String* | Relative path to the projects entry index file. |
 | `attrs` | *String* | Attributes apply to `<script>` tags. |
 | `ignore` | *Array* | External listed module IDs to ignore. |
+| `remove` | *Boolean* | When set to `true` will remove any injected dependencies in file |
 | `unpkg` | *Object* | Retrieve specific reference using a unpkg-uri pattern. |
 | `custom` | *Object* | Use a custom url reference to a module. |
 
@@ -125,6 +126,10 @@ The injectected dependencies in this example reflect the options defined within 
 - Lodash was ignored
 - BSS uses the minified version
 - Mithril is using the custom CDN address.
+
+### Removing injections
+
+You can remove injections by passing a truthy to the `remove` option which will detect and remove any injected `<script>` dependencies from the index file. This is helpful when you are building in different environments and may want development or production version scripts, where in development you inject but in production you bundle.
 
 ### How it works?
 The plugin uses your bundles `external: []` modules and cross-references them with your projects package.json dependencies. The name and version number is used to generate `<script src="">` tags that reference the modules [unpkg](unpkg.io) uri equivalent cdn address. The generated `script` tag modules are then injected into the entry `index` file that was defined in the plugin options.
