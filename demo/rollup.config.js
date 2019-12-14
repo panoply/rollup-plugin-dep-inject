@@ -26,7 +26,7 @@ export default {
     depInject({
       index: './demo/index.html',
       attr: '', // add a 'defer' attribute to each generated script tag
-      inBody: false,
+      remove: false, // remove any injected scripts and skipping injection
       ignore: [
         'lodash' // do not inject the 'lodash' module
       ],
